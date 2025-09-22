@@ -1,0 +1,90 @@
+# .gitignore per monorepo npm (React frontend + Node.js backend)
+# Regole generali: ignora dipendenze, build output, file di ambiente, IDE e file temporanei OS
+
+#########################
+# Node / Package mgr
+#########################
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+#########################
+# Build / output
+#########################
+dist/
+build/
+out/
+public/build/
+.next/
+.vite/
+.parcel-cache/
+.cache/
+/.cache/
+**/.cache/
+coverage/
+coverage/**
+target/
+dist-*/
+
+#########################
+# Environment
+#########################
+.env
+.env.*.local
+.env.local
+.env.production
+/*.local
+
+#########################
+# TypeScript
+#########################
+*.tsbuildinfo
+
+#########################
+# IDEs / editors
+#########################
+.vscode/
+*.code-workspace
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+#########################
+# OS specific
+#########################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+#########################
+# Logs / temp
+#########################
+logs
+*.log
+logs/**
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+debug.log*
+tmp/
+temp/
+*.tmp
+
+#########################
+# Misc tooling
+#########################
+.turbo/
+.cache-loader
+.cache/
+/.parcel-cache
+.idea/
+.envrc
+.eslintcache
+/.pnp
+.pnp.js
+
+# Keep lockfiles (package-lock.json) in source control for reproducible installs
+# If you use pnpm or yarn and want to ignore their lockfile, adjust accordingly.

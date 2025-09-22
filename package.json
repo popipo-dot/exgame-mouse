@@ -1,0 +1,24 @@
+{
+  "name": "its-exgame-2025-26",
+  "version": "1.0.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "ITS - corso React, Nodejs, DB - 2025/26",
+  "volta": {
+    "node": "22.19.0"
+  },
+  "engines": {
+    "node": "22.19.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
