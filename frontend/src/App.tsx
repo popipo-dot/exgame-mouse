@@ -1,53 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Logo from './assets/ExGame logo.svg'
-import Icona from './assets/profilo.png'
-import {Description} from './Description'
+import styles from "./App.module.css";
+import Logo from "./assets/ExGame logo.svg";
+import Icona from "./assets/profilo.png";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <nav className="navbar">
-        <div className="left">
+      <nav className={styles.navbar}>
+        <div className={styles.left}>
           <a href="">
-            <img src={Logo} alt="" className='logo'/>
+            <img src={Logo} alt="" className={styles.logo} />
           </a>
           <ul>
             <li>
-              <a href="#" className='sx'>Daschboard</a>
+              <a href="#" className={styles.sx}>
+                Dashboard
+              </a>
             </li>
             <li>
-              <a href="#" className='sx'>Esami</a>
+              <a href="#" className={styles.sx}>
+                Esami
+              </a>
             </li>
           </ul>
         </div>
 
-        <div className="right">
+        <div className={styles.right}>
           <ul>
-              <li>
-                <a href="#" className='dx'>Albe Molon</a>
-              </li>
-              <li>
-                <a href="#" className='dx'>Logout</a>
-              </li>
-            </ul>
+            <li>
+              <a href="#" className={styles.dx}>
+                Albe Molon
+              </a>
+            </li>
+            <li>
+              <a href="#" className={styles.dx}>
+                Logout
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
 
-      <div className='containername'>
-        <div className='profilo-inizio'>
-          <div className='contorno'>
-            <img src={Icona} alt="" className='icona'/>
+      <div className={styles.main}>
+        <div className={styles.profiloInizio}>
+          <div className={styles.contorno}>
+            <img src={Icona} alt="" className={styles.icona} />
             <p>Alberto Molon</p>
           </div>
         </div>
       </div>
-
-
 
       {/* <Description type="info"> Oggi facciamo:
         <ul>
@@ -60,9 +60,8 @@ function App() {
       <Description type="warning"> 
         Attenzione sarà difficile!
       </Description> */}
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
