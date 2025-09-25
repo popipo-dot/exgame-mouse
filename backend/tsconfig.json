@@ -44,10 +44,10 @@
   },
   "include": [
     "src/**/*",
-    "config/**/*",
-    "middlewares/**/*",
-    "models/**/*",
-    "routes/**/*"
+    "src/config/**/*",
+    "src/middlewares/**/*",
+    "src/models/**/*",
+    "src/routes/**/*"
   ],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }
