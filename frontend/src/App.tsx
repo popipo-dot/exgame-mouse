@@ -41,8 +41,8 @@ function App() {
       </nav>
 
       <div className={styles.main}>
-        <div className={styles.profiloInizio}>
-          <div className={styles.contorno}>
+        <div className={styles.content}>
+          <div className={styles.userInfo}>
             <img src={Icona} alt="" className={styles.icona} />
             <p>Alberto Molon</p>
           </div>
