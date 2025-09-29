@@ -1,18 +1,20 @@
 import styles from "./App.module.css";
 import Logo from "./assets/ExGame logo.svg";
-import ChipList from "./ChipList/ChipList";
-import ClockComponent from "./Clock/ClockComponent";
-import Description from "./Description/Description";
-import QuestionList from "./QuestionList/QuestionList";
-import UserInfoComponent from "./UserInfo/UserInfoComponent";
+import ChipList from "./components/ChipList/ChipList";
+import ClockComponent from "./components/Clock/ClockComponent";
+import Description from "./components/Description/Description";
+import QuestionList from "./components/QuestionList/QuestionList";
+import UserInfoComponent from "./components/UserInfo/UserInfoComponent";
 
 function App() {
+  // TODO Sposta questi dati nel file /mocks/chips.ts
   const chips = [
     { type: "date", testo: "12 settembre 2025" },
     { type: "session", testo: "prima sessione" },
     { type: "teacher", testo: "Prof.Bianchi" },
   ];
 
+  // TODO Sposta questi dati nel file /mocks/questions.ts
   const questions = [
     {
       question: "Qual è la capitale della Francia",
@@ -55,6 +57,7 @@ function App() {
       answers: ["Alexander Graham Bell", "Edison", "Marconi", "Tesla"],
     },
   ];
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -94,12 +97,14 @@ function App() {
 
       <div className={styles.main}>
         <div className={styles.content}>
+          {/* TODO Sposta questa struttura nel componente /pages/Subscription.tsx */}
+          {/* --- da qui --- */}
           <UserInfoComponent testo="Alberto Molon"></UserInfoComponent>
-
           <Description classe="1A" tipoDiTest="Matematica"></Description>
           <ChipList chips={chips}></ChipList>
           <ClockComponent tempo={7200}></ClockComponent>
           <QuestionList QuestionsList={questions} />
+          {/* --- fino a qui --- */}
         </div>
       </div>
     </>
