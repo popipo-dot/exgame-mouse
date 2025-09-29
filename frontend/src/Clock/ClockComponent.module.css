@@ -1,13 +1,13 @@
 .clock {
+  position: sticky;
+  top: 15px;
   font-size: 1.5rem;
-  font-family: 'Roboto Mono', monospace;
-  color: black;
-  background: white;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
   padding: 12px 24px;
   border-radius: 12px;
   display: inline-block;
-  letter-spacing: 2px;
-  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.08);
   text-align: center;
   width: 100%;
 }

@@ -2,13 +2,13 @@
   display: inline-flex;
   align-items: center;
   padding: 0.25em 0.9em;
-  background: #C0C0C0;
+  background: #eee;
   color: #404040;
   border-radius: 16px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   margin: 0 6px 6px 0;
-  box-shadow: 0 1px 3px rgba(60,60,60,0.08);
+  box-shadow: 0 1px 3px rgba(60, 60, 60, 0.08);
   transition: background 0.2s;
   cursor: default;
 }
@@ -16,5 +16,3 @@
 .chip:hover {
   background: #d5d6da;
 }
-
-
