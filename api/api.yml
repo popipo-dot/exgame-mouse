@@ -3,9 +3,6 @@ info:
   title: Exgame - API Documentation
   description: API documentation for the application
   version: 1.0.0
-  contact:
-    name: API Support
-    email: support@example.com
 
 servers:
   - url: http://localhost:8080
