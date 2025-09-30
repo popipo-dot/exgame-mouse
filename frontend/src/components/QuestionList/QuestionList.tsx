@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { QuestionType } from "./QuestionComponent/QuestionComponent";
 import QuestionComponent from "./QuestionComponent/QuestionComponent";
+import classes from "./QuestionList.module.css";
 
 type QuestionList = {
   questionsList: QuestionType[];
@@ -33,6 +34,10 @@ const QuestionList = ({ questionsList }: QuestionList) => {
           }}
         />
       ))}
+
+      <div className={classes.actions}>
+        <button className={classes.submit}>Consegna</button>
+      </div>
     </div>
   );
 };
