@@ -27,7 +27,10 @@ const QuestionComponent = ({
             value={answer}
             className={styles.radio}
             checked={answer === response}
-            onChange={() => setReponse(answer)}
+            onChange={() => {
+              console.log("Domanda: ", question, "Hai selezionato: ", answer);
+              setReponse(answer);
+            }}
           />
           {answer}
         </label>

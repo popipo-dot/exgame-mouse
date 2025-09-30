@@ -9,6 +9,11 @@ type QuestionList = {
 const QuestionList = ({ questionsList }: QuestionList) => {
   const [responses, setResponses] = useState<Record<string, string>>({});
 
+  console.log(
+    "Lo stato in questo momento è: ",
+    JSON.stringify(responses, null, 2),
+  );
+
   return (
     <div className="QuestionList">
       {questionsList.map((Question, idx) => (
@@ -17,9 +22,15 @@ const QuestionList = ({ questionsList }: QuestionList) => {
           question={Question.question}
           answers={Question.answers}
           response={responses[idx]}
-          setReponse={(value: string) =>
-            setResponses({ ...responses, [idx]: value })
-          }
+          setReponse={(value: string) => {
+            setResponses({ ...responses, [idx]: value });
+            console.log(
+              "Hai selezionato: ",
+              value,
+              "devo inserire questo valore nella domanda: ",
+              idx,
+            );
+          }}
         />
       ))}
     </div>
