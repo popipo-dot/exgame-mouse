@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { QuestionType } from "./QuestionComponent/QuestionComponent";
 import QuestionComponent from "./QuestionComponent/QuestionComponent";
 import classes from "./QuestionList.module.css";
+import type { QuestionType } from "./types";
 
 type QuestionList = {
-  questionsList: QuestionType[];
+  questionsList: QuestionType[]; // ATTENZIONE: QuestionType è cambiato!
 };
 
 const QuestionList = ({ questionsList }: QuestionList) => {
@@ -20,11 +20,10 @@ const QuestionList = ({ questionsList }: QuestionList) => {
 
   return (
     <div className="QuestionList">
-      {questionsList.map((Question, idx) => (
+      {questionsList.map((question, idx) => (
         <QuestionComponent
           key={idx}
-          question={Question.question}
-          answers={Question.answers}
+          question={question}
           response={responses[idx]}
           setReponse={(value: string) => {
             setResponses({ ...responses, [idx]: value });
