@@ -10,10 +10,13 @@ type QuestionList = {
 const QuestionList = ({ questionsList }: QuestionList) => {
   const [responses, setResponses] = useState<Record<string, string>>({});
 
-  console.log(
-    "Lo stato in questo momento è: ",
-    JSON.stringify(responses, null, 2),
-  );
+  const handleSubmit = () => {
+    console.log(
+      "Lo stato che stai inviando è:\n",
+      JSON.stringify(responses, null, 2),
+    );
+    // Qui potresti inviare le risposte a un server o fare altre azioni
+  };
 
   return (
     <div className="QuestionList">
@@ -36,7 +39,9 @@ const QuestionList = ({ questionsList }: QuestionList) => {
       ))}
 
       <div className={classes.actions}>
-        <button className={classes.submit}>Consegna</button>
+        <button className={classes.submit} onClick={handleSubmit}>
+          Consegna
+        </button>
       </div>
     </div>
   );
