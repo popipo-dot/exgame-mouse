@@ -1,3 +1,3 @@
-import { config } from "./config/envConfig.js";
+import { config } from "./config/config";
 
 console.log(config.PORT);
