@@ -2,7 +2,8 @@ import Koa from "koa";
 import Router from "@koa/router";
 import bodyParser from "@koa/bodyparser";
 import { config } from "./config/config";
-import serverRoutes from "./routes/server";
+import serverRoute from "./routes/server";
+import examsRoute from "./routes/exams";
 
 const app = new Koa();
 const router = new Router();
@@ -10,8 +11,9 @@ const router = new Router();
 app.use(bodyParser());
 
 app.use(router.routes()).use(router.allowedMethods());
-app.use(serverRoutes.routes()).use(serverRoutes.allowedMethods());
+app.use(serverRoute.routes()).use(serverRoute.allowedMethods());
+app.use(examsRoute.routes()).use(examsRoute.allowedMethods());
 
 app.listen(config.PORT, () => {
-  console.log(`Server running on http://${config.HOST}:${config.PORT}`);
+  console.log(`Server running at http://${config.HOST}:${config.PORT}`);
 });
