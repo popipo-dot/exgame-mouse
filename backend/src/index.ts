@@ -4,11 +4,18 @@ import bodyParser from "@koa/bodyparser";
 import { config } from "./config/config";
 import serverRoute from "./routes/server";
 import examsRoute from "./routes/exams";
+import cors from "@koa/cors";
 
 const app = new Koa();
 const router = new Router();
 
 app.use(bodyParser());
+
+app.use(
+  cors({
+    origin: config.FRONTEND_APP,
+  }),
+);
 
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serverRoute.routes()).use(serverRoute.allowedMethods());

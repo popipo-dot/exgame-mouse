@@ -15,6 +15,7 @@ interface IConfig {
   PORT: string;
   HOST: string;
   DB_URL: string;
+  FRONTEND_APP: string;
 }
 
 // Funzione che valida e restituisce le variabili d'ambiente
@@ -23,6 +24,7 @@ const getConfig = (): IConfig => {
     HOST: process.env["APP_HOST"] || "localhost",
     PORT: process.env["APP_PORT"] || "3000",
     DB_URL: process.env["MONGODB_URI"] || "mongodb://localhost:27017/test",
+    FRONTEND_APP: process.env["FRONTEND_APP"] || "http://localhost:3000",
   };
 
   // Esempio di validazione: lancia un errore se una variabile cruciale non è definita
