@@ -2,7 +2,7 @@ import Router from "@koa/router";
 import { exams } from "../mocks/exams";
 
 const router = new Router({
-  prefix: "/exams",
+  prefix: "/api/exams",
 });
 
 // ---- Helper Functions ----
