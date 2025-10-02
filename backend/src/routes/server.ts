@@ -49,10 +49,12 @@ router.post("/exams/new", async (ctx) => {
 router.patch("/exams/update/:id", async (ctx) => {
   const { id } = ctx.params;
   const exam = exams.find((e) => e._id === id);
+  const index = exams.findIndex((e)=>e._id===id);
 
   try {
     if (exam?._id === id) {
       const updatedExam = ctx.request.body;
+      exams[index] = { ...exams[index], ...updatedExam };
       ctx.status = 202;
       ctx.body = updatedExam;
     } else {
