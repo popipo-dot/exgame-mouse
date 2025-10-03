@@ -6,7 +6,6 @@ import QuestionList from "../components/QuestionList/QuestionList";
 import type { ExamType } from "../components/QuestionList/types";
 import UserInfoComponent from "../components/UserInfo/UserInfoComponent";
 import { chips } from "../mocks/chips";
-import { questions } from "../mocks/questions";
 
 /**
  * Invoca una API e restituisce i dati.
@@ -16,13 +15,16 @@ const useApiData = (url: string, defaultState: ExamType) => {
 
   useEffect(() => {
     // DA RIPRISTINARE quando sarà pronta l'api
-    // fetch(url)
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     setState(response);
-    //   });
+    fetch(url)
+      .then((response) => response.json())
+      .then((response: ExamType) => {
+        setState(response);
+      })
+      .catch((error) => {
+        console.error("Errore nel fetch:", error);
+      });
 
-    setState(questions); // DA RIMUOVERE quando sarà pronta l'api
+    // setState(questions); // DA RIMUOVERE quando sarà pronta l'api
   }, []);
 
   return state;
@@ -30,7 +32,7 @@ const useApiData = (url: string, defaultState: ExamType) => {
 
 export const Subscription = () => {
   const exam = useApiData(
-    "http://localhost:8080/exams/matematica",
+    "http://localhost:3000/api/exams/exam_001",
     {} as ExamType,
   );
 
