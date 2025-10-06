@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 import Logo from "./assets/ExGame logo.svg";
-import { Subscription } from "./pages/Subscription";
+import { MySubscriptions } from "./pages/student/mySubscriptions";
 
 function App() {
   return (
@@ -42,7 +42,8 @@ function App() {
 
       <div className={styles.main}>
         <div className={styles.content}>
-          <Subscription />
+          {/* <Subscription /> */}
+          <MySubscriptions />
         </div>
       </div>
     </>
