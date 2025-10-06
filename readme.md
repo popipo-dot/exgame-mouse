@@ -28,6 +28,13 @@ Se hai un **database Mongo** attivo sulla tua macchina, usa quello. La connessio
 
 Se invece non hai un database attivo, ma hai **Docker** installato, puoi lanciare `docker compose up` da questa cartella.
 
+### Frontend
+
+Librerie utilizzate:
+
+- Navigazione: [React router](https://reactrouter.com/start/declarative/installation)
+- Libreria di icone: [Tabler icons](https://tabler.io/icons) - [Doc](https://docs.tabler.io/icons/libraries/react)
+
 ## Flusso di lavoro
 
 ![](./doc/assets/flusso-di-lavoro.png)
