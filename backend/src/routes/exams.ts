@@ -1,13 +1,14 @@
 import Router from "@koa/router";
 import { exams } from "../mocks/exams";
+import {
+  findExamById,
+  findExamIndexById,
+  sanitizeSearchInput,
+} from "../lib/helper";
 
 const router = new Router({
   prefix: "/api/exams",
 });
-
-// ---- Helper Functions ----
-const findExamById = (id: string) => exams.find((e) => e._id === id);
-const findExamIndexById = (id: string) => exams.findIndex((e) => e._id === id);
 
 // ---- Routes ----
 
@@ -15,6 +16,42 @@ const findExamIndexById = (id: string) => exams.findIndex((e) => e._id === id);
 router.get("/", (ctx) => {
   ctx.status = 200;
   ctx.body = exams;
+});
+
+router.get("/search", (ctx) => {
+  const { name } = ctx.query;
+  if (!name) {
+    ctx.status = 400;
+    ctx.body = { error: "400 Bad Request" };
+    return;
+  }
+  const searchTerm =
+    typeof name === "string" ? name : Array.isArray(name) ? name[0] : "";
+  const sanitizedSearchTerm = sanitizeSearchInput(searchTerm);
+
+  const results = exams.filter((e) =>
+    e.name.toLowerCase().includes(sanitizedSearchTerm.toLowerCase()),
+  );
+
+  ctx.status = 200;
+  ctx.body = {
+    searchTerm: sanitizedSearchTerm,
+    count: results.length,
+    results: results,
+  };
+});
+
+router.get("/time", (ctx) => {
+  const minTime = parseInt(ctx.query.min_time as string) || 0;
+
+  if (!minTime || isNaN(minTime) || minTime < 0) {
+    ctx.status = 400;
+    ctx.body = { error: "Parametro 'min_time' mancante o non valido" };
+    return;
+  }
+  const filtered = exams.filter((exam) => exam.max_time > minTime);
+  ctx.status = 200;
+  ctx.body = filtered;
 });
 
 // GET /exams/:id - dettaglio di un singolo esame
