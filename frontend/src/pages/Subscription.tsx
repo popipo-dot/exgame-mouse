@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import ChipList from "../components/ChipList/ChipList";
 import ClockComponent from "../components/Clock/ClockComponent";
 import Description from "../components/Description/Description";
@@ -31,9 +32,13 @@ const useApiData = (url: string, defaultState: ExamType) => {
 };
 
 export const Subscription = () => {
+  const { subcriptionId } = useParams();
+
   const exam = useApiData(
-    "http://localhost:3000/api/exams/exam_001",
+    "http://localhost:3000/api/subscriptions/" + subcriptionId,
     {} as ExamType,
+    // TODO: dopo aver invocato la /subscriptions/:id, prendere l'exam_id
+    // e fare una seconda chiamata alla /exams/:id per prendere le domande
   );
 
   // ordinaIlCaffè().then(beviIlCaffe).then(pagaIlCaffe)
