@@ -1,10 +1,10 @@
 import { IconEdit, IconEye, IconPlayerPlay } from "@tabler/icons-react";
 import { Link } from "react-router";
-import type { SubscriptionType } from "../../mocks/mySubscriptions";
+import type { SubscribedExam } from "../../pages/student/mySubscriptions";
 import styles from "./Table.module.css";
 
 type TableProps = {
-  data: SubscriptionType[];
+  data: SubscribedExam[];
 };
 
 export const Table: React.FC<TableProps> = ({ data }) => {
@@ -21,8 +21,8 @@ export const Table: React.FC<TableProps> = ({ data }) => {
       {data.map((subscription) => {
         return (
           <div className={styles.row}>
-            <div className={styles.cell}>{subscription.exam}</div>
-            <div className={styles.cell}>{subscription.date}</div>
+            <div className={styles.cell}>{subscription.name}</div>
+            <div className={styles.cell}>{subscription.schedule_date}</div>
 
             {hasGrade && (
               <div className={styles.cell}>{subscription.grade}</div>
