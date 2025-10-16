@@ -6,6 +6,7 @@ import serverRoute from "./routes/server";
 import examsRoute from "./routes/exams";
 import cors from "@koa/cors";
 import logger from "./middlewares/logger";
+import { exams } from "./mocks/exams";
 
 const app = new Koa();
 const router = new Router();
