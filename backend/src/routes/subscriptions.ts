@@ -24,4 +24,18 @@ router.get("/:id", (ctx) => {
   }
 });
 
+router.put("/", (ctx) => {
+  const subscription = ctx.request.body;
+  console.log("Submitting subscription:", subscription);
+  const index = subscriptions.findIndex(sub => sub._id === subscription._id);
+  if (index !== -1) {
+    subscriptions[index] = subscription;
+    ctx.status = 200;
+    ctx.body = subscription;
+  } else {
+    ctx.status = 404;
+    ctx.body = { message: "Subscription not found" };
+  }
+});
+
 export default router;
