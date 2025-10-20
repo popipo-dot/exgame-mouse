@@ -60,6 +60,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /subscriptions/{subscriptionId}:
+    get:
+      summary: Ritorna i dettagli di una iscrizione specifica
+      parameters:
+        - in: path
+          name: subscriptionId
+          required: true
+          schema:
+            type: string
+          description: ID dell'iscrizione da recuperare
+      responses:
+        "200":
+          description: Dati dell'iscrizione
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subscription"
+        "404":
+          description: Iscrizione non trovata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
