@@ -8,7 +8,7 @@ type TableProps = {
 };
 
 export const Table: React.FC<TableProps> = ({ data }) => {
-  const hasGrade = Boolean(data[0].grade);
+  const hasGrade = Boolean(data[0]?.grade);
 
   return (
     <div className={styles.table}>
