@@ -20,7 +20,6 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({ children }
         localStorage.setItem("authenticated", authenticated ? "true" : "false");
     }
 
-    console.log(username);
     return (
         <AuthenticationContext.Provider value={{ username, setUsername, authenticated, setAuthenticated }}>
             {children}
