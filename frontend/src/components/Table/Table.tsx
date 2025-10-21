@@ -20,7 +20,7 @@ export const Table: React.FC<TableProps> = ({ data }) => {
       </div>
       {data.map((subscription) => {
         return (
-          <div className={styles.row}>
+          <div className={styles.row} key={subscription._id}>
             <div className={styles.cell}>{subscription.name}</div>
             <div className={styles.cell}>{subscription.schedule_date}</div>
 
