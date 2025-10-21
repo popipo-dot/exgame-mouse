@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Link, Route, Routes } from "react-router";
 import styles from "./App.module.css";
 import Logo from "./assets/ExGame logo.svg";
 import { MySubscriptions } from "./pages/student/mySubscriptions";
@@ -9,20 +9,20 @@ function App() {
     <>
       <nav className={styles.navbar}>
         <div className={styles.left}>
-          <a href="">
+          <Link to="/">
             <img src={Logo} alt="" className={styles.logo} />
-          </a>
+          </Link>
           <ul>
             <li>
-              <a href="#" className={styles.sx}>
+              <Link to="/" className={styles.sx}>
                 Dashboard
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="#" className={styles.sx}>
+            {/* <li>
+              <a href="/" className={styles.sx}>
                 Esami
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
