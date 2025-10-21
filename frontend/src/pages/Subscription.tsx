@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ChipList from "../components/ChipList/ChipList";
 import ClockComponent from "../components/Clock/ClockComponent";
@@ -7,6 +7,7 @@ import QuestionList from "../components/QuestionList/QuestionList";
 import type { ExamType } from "../components/QuestionList/types";
 import UserInfoComponent from "../components/UserInfo/UserInfoComponent";
 import { chips } from "../mocks/chips";
+import { AuthenticationContext } from "../components/authentication/AuthenticationProvider";
 
 /**
  * Invoca una API e restituisce i dati.
@@ -34,6 +35,8 @@ const useApiData = (url: string, defaultState: ExamType) => {
 export const Subscription = () => {
   const { subcriptionId } = useParams();
 
+  const { username } = useContext(AuthenticationContext);
+
   const exam = useApiData(
     "http://localhost:3000/api/subscriptions/" + subcriptionId,
     {} as ExamType,
@@ -45,7 +48,7 @@ export const Subscription = () => {
 
   return (
     <>
-      <UserInfoComponent testo="Alberto Molon"></UserInfoComponent>
+      <UserInfoComponent testo={username}></UserInfoComponent>
       <Description classe="1A" tipoDiTest="Matematica"></Description>
       <ChipList chips={chips}></ChipList>
       <ClockComponent tempo={7200}></ClockComponent>
