@@ -1,5 +1,6 @@
 import { Context, Next } from "koa";
 import { subscriptions } from "../mocks/subscriptions";
+
 export const examsMiddleware = async (ctx: Context, next: Next) => {
   const { exam_id, student_id } = ctx.request.body;
 
