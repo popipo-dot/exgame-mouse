@@ -7,6 +7,7 @@ import ClockComponent from "../components/Clock/ClockComponent";
 import Description from "../components/Description/Description";
 import QuestionList from "../components/QuestionList/QuestionList";
 import type { ExamType } from "../components/QuestionList/types";
+import SpeedDialMenu from "../components/SpeedDialMenu/SpeedDialMenu";
 import UserInfoComponent from "../components/UserInfo/UserInfoComponent";
 import { chips } from "../mocks/chips";
 
@@ -43,6 +44,7 @@ export const Subscription = () => {
       <ChipList chips={chips}></ChipList>
       <ClockComponent tempo={7200}></ClockComponent>
       <QuestionList questionsList={exam?.questions || []} />
+      <SpeedDialMenu />
     </>
   );
 };
