@@ -19,8 +19,8 @@ export const initSocketIo = (httpServer: http.Server) => {
   io.on("connection", (socket) => {
     const user: User = { id: socket.id, data: {}, actions: [], currentSubscriptionId: undefined };
     console.log("Si è connesso", socket.id);
-    // socket.emit("users", users);
 
+    // Helper to register user actions
     const registerAction = (action: string) => {
       const data: SubscriptionAction = { subscriptionId: user.currentSubscriptionId || "", action, timestamp: Date.now() };
       console.log("Action from", user.name, ":", data);
@@ -40,6 +40,7 @@ export const initSocketIo = (httpServer: http.Server) => {
       console.log("Si è registrato", name, "Utenti connessi", users);
     });
 
+    // Quando l'utente atterra su una pagina "subscription", associa la socket a quella sottoscrizione
     socket.on("currentSubscription", (subscriptionId: string) => {
       user.currentSubscriptionId = subscriptionId;
     });
@@ -81,6 +82,7 @@ export const initSocketIo = (httpServer: http.Server) => {
       socket.emit("copy", randomData);
     });
 
+    // Viene chiamato quando l'utente aggiorna le sue risposte (serve per permettere agli altri di copiare)
     socket.on("updateResponses", (responses) => {
       registerAction("updateResponses");
       if (!user.currentSubscriptionId) {
