@@ -8,7 +8,17 @@ import { SubscriptionAction, User } from "./types";
 export const initSocketIo = (httpServer: http.Server) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: ["https://admin.socket.io", "*"], // TODO: configure for production
+      origin: (origin, callback) => {
+        const allowed = [
+          "https://admin.socket.io",
+          "http://localhost:5173",
+          "http://localhost:5173/" // per sicurezza se il browser aggiunge lo slash
+        ];
+        if (!origin || allowed.includes(origin)) {
+          return callback(null, true);
+        }
+        callback(new Error("Not allowed by CORS"));
+      },
       credentials: true
     },
   });
