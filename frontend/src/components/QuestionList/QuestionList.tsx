@@ -26,7 +26,7 @@ const QuestionList = ({ questionsList }: QuestionList) => {
     // Qui potresti inviare le risposte a un server o fare altre azioni
 
     // L'api richiede un oggetto di tipo SubscriptionType, trasformo la variabile di stato `responses` in questo oggetto:
-    const requestBody: SubscriptionType = {
+    const requestBody: Omit<SubscriptionType, "status" | "grade"> = {
       _id: "subscription_id_example",
       exam_id: "exam_id_example",
       student_id: "student_id_example",
