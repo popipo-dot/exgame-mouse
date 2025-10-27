@@ -1,6 +1,6 @@
 import http from "http";
 import { Server } from "socket.io";
-import { messageLimit } from "../config/socket-io";
+import { SubscriptionAction, User } from "./types";
 
 // Follow https://socket.io/docs/v4/server-application-structure/ for organizing handlers
 
@@ -14,82 +14,82 @@ export const initSocketIo = (httpServer: http.Server) => {
   /**
    * Keep track of all connected users
    */
-  let users: [] = [];
-
-  /**
-   * Keep track of all messages
-   */
-  const messages: [] = [];
-
-  /**
-   * Keep track of the total number of messages
-   */
-  let totalMessager = 0;
+  let users: User[] = [];
 
   io.on("connection", (socket) => {
+    const user: User = { id: socket.id, data: {}, actions: [], currentSubscriptionId: undefined };
     console.log("Si è connesso", socket.id);
-    socket.emit("message", messages);
-    socket.emit("totalMessages", totalMessager);
-    socket.emit("users", users);
+    // socket.emit("users", users);
 
-    socket.emit("connected", "Hello");
+    const registerAction = (action: string) => {
+      const data: SubscriptionAction = { subscriptionId: user.currentSubscriptionId || "", action, timestamp: Date.now() };
+      console.log("Action from", user.name, ":", data);
+      user.actions.push(data);
+    }
 
     socket.on("disconnect", () => {
-      console.log("Si è disconnesso", socket.id);
+      console.log("Si è disconnesso", socket.id, user.name);
       users = users.filter((user) => user.id !== socket.id);
-      io.emit("Tutti gli utenti connessi", users);
+      io.emit("Utenti connessi", users);
     });
 
-    socket.on("register", (user: string) => {
-      console.log("Si è registrato", user);
-      users.push({ id: socket.id, name: user, responses: [] });
+    socket.on("register", (name: string) => {
+      user.name = name;
+      users.push(user);
       io.emit("users", users);
-      socket.emit("message", messages);
-      socket.emit("totalMessages", totalMessager);
-      console.log("Tutti gli utenti connessi", users);
+      console.log("Si è registrato", name, "Utenti connessi", users);
     });
 
-    socket.on("message", (text: string) => {
-      console.log("Messaggio ricevuto", text);
-      totalMessager++;
-      messages.push({
-        user: users.find((user) => user.id === socket.id) || {
-          id: socket.id,
-          name: "utente disconnesso",
-        },
-        text,
-      });
-      // keep only the last 50 messages
-      if (messages.length > messageLimit) {
-        messages.splice(0, messages.length - messageLimit);
+    socket.on("currentSubscription", (subscriptionId: string) => {
+      user.currentSubscriptionId = subscriptionId;
+    });
+
+    socket.on("disturb", () => {
+      registerAction("disturb");
+      socket.broadcast.emit("disturb", { from: user.name });
+    });
+
+    socket.on("copy", () => {
+      registerAction("copy");
+      if (!user.currentSubscriptionId) {
+        console.log("Utente non associato a una sottoscrizione, impossibile copiare i dati");
+        return;
       }
-      io.emit("message", messages);
-      io.emit("totalMessages", totalMessager);
-    });
 
-    socket.on("response", (response) => {
-      const user = users.find((user) => user.id === socket.id);
-      console.log(
-        "Risposta ricevuta",
-        response,
-        "dall'utente",
-        user,
-        socket.id,
-      );
-      console.log("Tutti gli utenti connessi", users);
-      if (user) {
-        user.responses = user.responses || [];
-        if (user.responses.find((r) => r.questionId === response.questionId)) {
-          user.responses = user.responses.map((r) =>
-            r.questionId === response.questionId ? response : r,
-          );
-        } else {
-          user.responses.push(response);
-        }
-        io.emit("users", users);
+      // Trovo un utente a caso che ha dati salvati per questa sottoscrizione (diverso dall'utente corrente)
+      const usersWithData = users
+        .filter(u => u.id !== user.id)
+        .filter(u => u.data[user.currentSubscriptionId!]);
+
+      // Se non ci sono utenti con dati, esco
+      if (usersWithData.length === 0) {
+        console.log("Nessun altro utente con dati salvati per questa sottoscrizione");
+        return;
       }
-    });
-  });
 
-  // io.emit("messageToEveryone", "Ciao a tutti"); // Broadcast a message
-};
+      // Prendo un utente a caso e invio i suoi dati all'utente corrente
+      const randomUser = usersWithData[Math.floor(Math.random() * usersWithData.length)];
+
+      if (!randomUser) {
+        console.log("Nessun utente trovato da cui copiare i dati");
+        return;
+      }
+
+      // Invio i dati salvati per la sottoscrizione corrente
+      const randomData = randomUser.data?.[user.currentSubscriptionId!];
+      console.log(`L'utente ${user.name} sta copiando i dati da ${randomUser.name}:`, randomData);
+      socket.emit("copy", randomData);
+    });
+
+    socket.on("updateResponses", (responses) => {
+      registerAction("updateResponses");
+      if (!user.currentSubscriptionId) {
+        console.log("Utente non associato a una sottoscrizione, impossibile salvare le risposte");
+        return;
+      }
+
+      user.data[user.currentSubscriptionId] = responses;
+      console.log('users', JSON.stringify(users, null, 2));
+    });
+  })
+}
