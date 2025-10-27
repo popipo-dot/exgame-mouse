@@ -35,6 +35,10 @@ Librerie utilizzate:
 - Navigazione: [React router](https://reactrouter.com/start/declarative/installation)
 - Libreria di icone: [Tabler icons](https://tabler.io/icons) - [Doc](https://docs.tabler.io/icons/libraries/react)
 
+### Socket.io admin
+
+Dopo aver fatto partire il server, vai all'url [https://admin.socket.io](https://admin.socket.io) e connettiti a `http://localhost:3000`
+
 ## Flusso di lavoro
 
 ![](./doc/assets/flusso-di-lavoro.png)

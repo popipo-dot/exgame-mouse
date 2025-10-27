@@ -17,6 +17,7 @@
     "@koa/bodyparser": "^6.0.0",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^14.0.0",
+    "@socket.io/admin-ui": "^0.5.1",
     "dotenv": "^17.2.3",
     "koa": "^3.0.1",
     "socket.io": "^4.8.1",
