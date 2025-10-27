@@ -1,3 +1,4 @@
+import { instrument } from "@socket.io/admin-ui";
 import http from "http";
 import { Server } from "socket.io";
 import { SubscriptionAction, User } from "./types";
@@ -7,8 +8,13 @@ import { SubscriptionAction, User } from "./types";
 export const initSocketIo = (httpServer: http.Server) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: "*", // TODO: configure for production
+      origin: ["https://admin.socket.io", "*"], // TODO: configure for production
+      credentials: true
     },
+  });
+
+  instrument(io, {
+    auth: false
   });
 
   /**
