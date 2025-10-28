@@ -24,6 +24,10 @@ const FloatingChat = () => {
     socket?.on("chatMessageList", (messages: { from?: string; text: string }[]) => {
       setMessageList(messages);
     })
+
+    return () => {
+      socket?.off("chatMessageList");
+    }
   }, [socket]);
 
   if (!isVisible) return null;
