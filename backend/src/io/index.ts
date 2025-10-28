@@ -31,6 +31,7 @@ export const initSocketIo = (httpServer: http.Server) => {
    * Keep track of all connected users
    */
   let users: User[] = [];
+  let messageList: { from?: string; text: string }[] = [];
 
   io.on("connection", (socket) => {
     const user: User = { id: socket.id, data: {}, actions: [], currentSubscriptionId: undefined };
@@ -97,6 +98,15 @@ export const initSocketIo = (httpServer: http.Server) => {
       console.log(`L'utente ${user.name} sta copiando i dati da ${randomUser.name}:`, randomData);
       socket.emit("copy", randomData);
     });
+
+    socket.on("chatMessage", (message: string) => {
+      const messageObject = { from: user.name, text: message };
+      messageList.push(messageObject);
+      console.log('messageList', messageList);
+      socket.broadcast.emit("chatMessageList", messageList);
+      socket.emit("chatMessageList", messageList);
+      console.log("Messaggio ricevuto:", messageObject)
+    })
 
     // Viene chiamato quando l'utente aggiorna le sue risposte (serve per permettere agli altri di copiare)
     socket.on("updateResponses", (responses) => {

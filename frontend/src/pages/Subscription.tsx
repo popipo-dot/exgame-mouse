@@ -12,6 +12,7 @@ import { SocketIoContext } from "../components/socketio/SocketIoContext";
 import SpeedDialMenu from "../components/SpeedDialMenu/SpeedDialMenu";
 import UserInfoComponent from "../components/UserInfo/UserInfoComponent";
 import { chips } from "../mocks/chips";
+import { ChatVisibility } from "../components/FloatingChat/ChatVisibility";
 
 export const Subscription = () => {
   const { subcriptionId } = useParams();
@@ -60,8 +61,10 @@ export const Subscription = () => {
       <ClockComponent tempo={7200}></ClockComponent>
       <QuestionList questionsList={exam?.questions || []} />
 
-      <SpeedDialMenu />
-      <FloatingChat />
+      <ChatVisibility>
+        <SpeedDialMenu />
+        <FloatingChat />
+      </ChatVisibility>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { IconBellRinging, IconClipboardCheck, IconQuestionMark } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
+import { ChatVisibilityContext } from '../FloatingChat/ChatVisibility';
 import { SocketIoContext } from '../socketio/SocketIoContext';
 import { SpeedDialItem } from './SpeedDialItem';
 import styles from './SpeedDialMenu.module.css';
@@ -7,6 +8,7 @@ import styles from './SpeedDialMenu.module.css';
 export const SpeedDialMenu = () => {
   const [open, setOpen] = useState(false);
   const socketIoContext = useContext(SocketIoContext);
+  const { setIsVisible } = useContext(ChatVisibilityContext);
 
   const handleToggle = () => setOpen(!open);
 
@@ -15,6 +17,11 @@ export const SpeedDialMenu = () => {
     socketIoContext.socket?.emit(actionName);
     setOpen(false);
   };
+
+  const handleActionAsk = () => {
+    setOpen(false);
+    setIsVisible(true);
+  }
 
   if (!socketIoContext.connected) {
     return null;
@@ -35,7 +42,7 @@ export const SpeedDialMenu = () => {
           <SpeedDialItem
             icon={<IconQuestionMark />}
             label="Chiedi aiuto"
-            onClick={() => handleActionClick("ask")} />
+            onClick={() => handleActionAsk()} />
         </div>
       )}
       <button
