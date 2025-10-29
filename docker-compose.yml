@@ -1,9 +1,30 @@
+version: "3.9" # Versione del formato docker-compose
+
 services:
+  # --- Servizio MongoDB ---
   db:
-    image: mongodb/mongodb-community-server
+    image: mongodb/mongodb-community-server:latest # Immagine ufficiale MongoDB
+    container_name: mongo_db # Nome del container
     ports:
-      - 27017:27017
+      - "27017:27017" # Espone la porta di MongoDB sulla macchina host
+    volumes:
+      - mongo_data:/data/db # Volume persistente per i dati del database
+    restart: unless-stopped # Riavvia automaticamente se il container si interrompe
+
+  # --- Servizio DbGate (interfaccia web per MongoDB) ---
   admin:
-    image: dbgate/dbgate
+    image: dbgate/dbgate:latest # Immagine ufficiale DbGate
+    container_name: db_admin # Nome del container
     ports:
-      - 27000:3000
+      - "27000:3000" # Espone la porta 3000 del container sulla 27000 dell’host
+    depends_on:
+      - db # Garantisce che MongoDB parta prima di DbGate
+    environment:
+      CONNECTIONS: |
+        mongo|MongoDB|mongodb://db:27017|mydatabase # Connessione automatica al DB Mongo
+    restart: unless-stopped # Riavvia automaticamente se viene interrotto
+
+# --- Volumi persistenti ---
+volumes:
+  mongo_data: # Crea un volume Docker per salvare i dati
+    driver: local # Usa il driver locale (default)
