@@ -9,11 +9,7 @@ import logger from "./middlewares/logger";
 import examsRoute from "./routes/exams";
 import serverRoute from "./routes/server";
 import subscriptionsRoute from "./routes/subscriptions";
-<<<<<<< HEAD
-import { dbClient } from 
-=======
 import { dbClient } from "./lib/db";
->>>>>>> 951398b3f1eb5422e7fa42e3931e583fe7761a2e
 
 const app = new Koa();
 const router = new Router();
