@@ -9,6 +9,7 @@ import logger from "./middlewares/logger";
 import examsRoute from "./routes/exams";
 import serverRoute from "./routes/server";
 import subscriptionsRoute from "./routes/subscriptions";
+import { dbClient } from "./lib/db";
 
 const app = new Koa();
 const router = new Router();
@@ -21,6 +22,15 @@ app.use(
     origin: config.FRONTEND_APP,
   }),
 );
+
+dbClient
+  .connect()
+  .then(() => {
+    console.log("Database connected");
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
 
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serverRoute.routes()).use(serverRoute.allowedMethods());
