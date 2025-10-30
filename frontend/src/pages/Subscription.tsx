@@ -5,18 +5,34 @@ import { AuthenticationContext } from "../components/authentication/Authenticati
 import ChipList from "../components/ChipList/ChipList";
 import ClockComponent from "../components/Clock/ClockComponent";
 import Description from "../components/Description/Description";
+import FloatingChat from "../components/FloatingChat/FloatingChat";
 import QuestionList from "../components/QuestionList/QuestionList";
 import type { ExamType } from "../components/QuestionList/types";
+import { SocketIoContext } from "../components/socketio/SocketIoContext";
 import SpeedDialMenu from "../components/SpeedDialMenu/SpeedDialMenu";
 import UserInfoComponent from "../components/UserInfo/UserInfoComponent";
 import { chips } from "../mocks/chips";
+import { ChatVisibility } from "../components/FloatingChat/ChatVisibility";
 
 export const Subscription = () => {
   const { subcriptionId } = useParams();
   const [exam, setExam] = useState<ExamType | null>(null);
   const { username } = useContext(AuthenticationContext);
+  const socketContext = useContext(SocketIoContext);
+  const socket = socketContext.socket;
 
   console.log("ID SOTTOSCRIZIONE:", subcriptionId);
+
+  useEffect(() => {
+    socket?.emit('currentSubscription', subcriptionId);
+    socket?.on("connect", () => {
+      socket?.emit('currentSubscription', subcriptionId);
+    });
+
+    return () => {
+      socket?.off("connect");
+    };
+  }, [socket, subcriptionId]);
 
   useEffect(() => {
     // Chiamiamo l'API per ottenere i dettagli della sottoscrizione
@@ -35,7 +51,7 @@ export const Subscription = () => {
         console.error("Errore nel fetch della sottoscrizione:", error);
       });
 
-  }, []);
+  }, [subcriptionId]);
 
   return (
     <>
@@ -44,7 +60,11 @@ export const Subscription = () => {
       <ChipList chips={chips}></ChipList>
       <ClockComponent tempo={7200}></ClockComponent>
       <QuestionList questionsList={exam?.questions || []} />
-      <SpeedDialMenu />
+
+      <ChatVisibility>
+        <SpeedDialMenu />
+        <FloatingChat />
+      </ChatVisibility>
     </>
   );
 };

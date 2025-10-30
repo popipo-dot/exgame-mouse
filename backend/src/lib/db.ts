@@ -5,8 +5,8 @@ import mongoose from "mongoose"
 mongoose.connect(config.DB_URL);
 
 const catSchema = new mongoose.Schema({
-    name:String
-    
+  ame: String,
+  age: Number,
 });
 
 const catModel = mongoose.model("cat", catSchema)
